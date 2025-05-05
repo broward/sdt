@@ -1,0 +1,9 @@
+{
+    "from": "0xSenderAddressHere",
+    "to": "0xRecipientAddressHere",
+    "value": 1000000000000000000,
+    "privateFor": [
+        "PublicKey1",
+        "PublicKey2"
+    ]
+}

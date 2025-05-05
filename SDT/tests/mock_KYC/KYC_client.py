@@ -1,0 +1,24 @@
+import requests
+
+url = "http://127.0.0.1:5000/submit_kyc"
+kyc_data = {
+    "first_name": "Jane",
+    "last_name": "Doe",
+    "date_of_birth": "1990-05-15",
+    "nationality": "US",
+    "id_type": "passport",
+    "id_number": "A12345678",
+    "address": {
+        "street": "123 Elm Street",
+        "city": "Springfield",
+        "state": "IL",
+        "zip_code": "62704",
+        "country": "USA"
+    },
+    "email": "jane.doe@example.com",
+    "phone": "+1234567890",
+    "kyc_date": "2024-01-01T12:00:00Z"
+}
+
+response = requests.post(url, json=kyc_data)
+print(response.json())

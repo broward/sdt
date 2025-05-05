@@ -1,0 +1,17 @@
+{
+  "message_type": "transaction",
+  "payload": {
+    "header": {
+      "message_type": "transaction",
+      "version": 1.0,
+      "tracking_id": 67890,
+      "create_date": "2024-06-17"
+    },
+    "depo_type": "gold",
+    "transaction_id": 987654321,
+    "payer": 123456,
+    "payee": 654321,
+    "amount": 2500.75
+  }
+}
+

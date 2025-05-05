@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "State Treasury Messages Schema",
+  "type": "object",
+  "definitions": {
+    "header": {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string"
+        },
+        "version": {
+          "type": "number"
+        },
+        "tracking_id": {
+          "type": "number"
+        },
+        "create_date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "message_type",
+        "version",
+        "tracking_id",
+        "create_date"
+      ]
+    },
+    "treasury": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/header"
+        },
+        "treasury_id": {
+          "type": "string"
+        },
+        "state_name": {
+          "type": "string"
+        },
+        "funds_type": {
+          "type": "string",
+          "enum": ["general_fund", "gold_reserve", "debt_fund", "special_fund"]
+        },
+        "amount": {
+          "type": "number"
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "transaction_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "header",
+        "treasury_id",
+        "state_name",
+        "funds_type",
+        "amount",
+        "currency",
+        "transaction_date"
+      ]
+    }
+  },
+  "properties": {
+    "message_type": {
+      "type": "string",
+      "enum": [
+        "treasury",
+        "result",
+        "error",
+        "header"
+      ]
+    },
+    "payload": {
+      "type": "object",
+      "$ref": "#/definitions/treasury"
+    }
+  },
+  "required": [
+    "message_type",
+    "payload"
+  ]
+}
+

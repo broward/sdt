@@ -1,0 +1,59 @@
+import requests
+import json
+
+class QuorumClient:
+    def __init__(self, rpc_url):
+        """
+        Initialize the Quorum client.
+        :param rpc_url: The URL of the Quorum node's JSON-RPC interface.
+        """
+        self.rpc_url = rpc_url
+
+    def send_rpc_request(self, method, params=None):
+        """
+        Send an RPC request to the Quorum node.
+        :param method: JSON-RPC method name.
+        :param params: Parameters for the RPC call.
+        :return: JSON response from the node.
+        """
+        if params is None:
+            params = []
+        payload = {
+            "jsonrpc": "2.0",
+            "method": method,
+            "params": params,
+            "id": 1
+        }
+        headers = {'Content-Type': 'application/json'}
+        response = requests.post(self.rpc_url, data=json.dumps(payload), headers=headers)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            raise Exception(f"Error {response.status_code}: {response.text}")
+
+    def get_transaction(self, transaction_hash):
+        """
+        Retrieve a transaction by hash.
+        :param transaction_hash: The transaction hash.
+        :return: Transaction details.
+        """
+        return self.send_rpc_request("eth_getTransactionByHash", [transaction_hash])
+
+    def send_transaction(self, from_address, to_address, value, private_for=None):
+        """
+        Send a transaction to the blockchain.
+        :param from_address: Sender's address.
+        :param to_address: Receiver's address.
+        :param value: Value in Wei.
+        :param private_for: List of public keys for private transactions (optional).
+        :return: Transaction hash.
+        """
+        transaction = {
+            "from": from_address,
+            "to": to_address,
+            "value": hex(value)
+        }
+        if private_for:
+            transaction["privateFor"] = private_for
+
+        return self.send_rpc_request("eth_sendTransaction", [transaction])

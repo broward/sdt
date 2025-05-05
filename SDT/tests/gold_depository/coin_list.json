@@ -1,0 +1,12 @@
+[
+    {
+        "coin_id": "GC-001",
+        "description": "1 oz Gold Eagle",
+        "value": 100
+    },
+    {
+        "coin_id": "GC-002",
+        "description": "1 oz Krugerrand",
+        "value": 105
+    }
+]

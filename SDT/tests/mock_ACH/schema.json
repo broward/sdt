@@ -1,0 +1,72 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+        "transaction_id": {
+            "type": "string"
+        },
+        "payer": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "account_number": {
+                    "type": "string"
+                },
+                "routing_number": {
+                    "type": "string",
+                    "pattern": "^[0-9]{9}$"
+                }
+            },
+            "required": [
+                "name",
+                "account_number",
+                "routing_number"
+            ]
+        },
+        "payee": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "account_number": {
+                    "type": "string"
+                },
+                "routing_number": {
+                    "type": "string",
+                    "pattern": "^[0-9]{9}$"
+                }
+            },
+            "required": [
+                "name",
+                "account_number",
+                "routing_number"
+            ]
+        },
+        "amount": {
+            "type": "number",
+            "minimum": 0
+        },
+        "currency": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$"
+        },
+        "transaction_date": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "memo": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "transaction_id",
+        "payer",
+        "payee",
+        "amount",
+        "currency",
+        "transaction_date"
+    ]
+}
