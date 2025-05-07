@@ -1,0 +1,66 @@
+version: '3.9'
+
+services:
+  Db:
+    image: postgres:latest
+    restart: always
+    Ports:
+    - 5432:5432
+    Environment:
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+    Volumes:
+    - db:/var/lib/postgresql/data
+  Volumes:
+    Db:
+      driver: local
+
+  sdt_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        API_DIR: sdt
+        PORT: 5000
+    ports:
+      - "5000:5000"
+      
+  aml_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        API_DIR: test/mock_AML
+        PORT: 5001
+    ports:
+      - "5001:5001"
+
+  kyc_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        API_DIR: test/mock_KYC
+        PORT: 5002
+    ports:
+      - "5002:5002"
+
+  ach_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        API_DIR: test/mock_ACH
+        PORT: 5003
+    ports:
+      - "5003:5003"
+
+  gold_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        API_DIR: test/gold_depository
+        PORT: 5004
+    ports:
+      - "5004:5004"
